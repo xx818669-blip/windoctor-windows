@@ -1,0 +1,161 @@
+{
+  "jsonrpc": "2.0",
+  "id": "synthetic-capture-1",
+  "result": {
+    "resultType": "complete",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ok\":true,\"snapshot\":{\"schema_version\":\"windoctor.snapshot/1\",\"snapshot_id\":\"11111111-1111-4111-8111-111111111111\",\"captured_at\":\"2026-11-11T01:00:00Z\",\"collector\":{\"name\":\"windoctor\",\"version\":\"0.0.0\"},\"source\":{\"declared_context\":\"mcp\",\"observed_via\":\"current_process\",\"process_instance_id\":\"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa\"},\"policy\":{\"privacy\":1,\"normalization\":1,\"resolver\":1,\"scope_id\":\"192dc49861428938df4113f0e490a15fe999700eedcfc5b43b2dc3029e784f61\"},\"os\":{\"platform\":\"win32\",\"version\":\"10.0.0\"},\"completion\":\"complete\",\"observations\":{\"cwd\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"d105afebf27f8db7a2bffe05178527eeb4b2405b2c6b337159da703ce3c5175f\",\"reason\":\"NONE\",\"auth_present\":null},\"env.PATH\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"f230b07e46e559e4bec68227214ae4ebaf81f0a907e3ba04e327e0290c439549\",\"reason\":\"NONE\",\"auth_present\":null},\"env.PATHEXT\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"7d0c7ee8d83d7d17a40e978789e731c3ffa70fd771a7f87fab97e1398eb0cac8\",\"reason\":\"NONE\",\"auth_present\":null},\"env.HTTP_PROXY\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"568cf336bde65cd3536d81c8beafc2da655193e1e6a9df1592ee1db38497f969\",\"reason\":\"NONE\",\"auth_present\":false},\"env.HTTPS_PROXY\":{\"state\":\"missing\",\"display\":\"MISSING\",\"token\":null,\"reason\":\"NOT_SET\",\"auth_present\":null},\"env.ALL_PROXY\":{\"state\":\"missing\",\"display\":\"MISSING\",\"token\":null,\"reason\":\"NOT_SET\",\"auth_present\":null},\"env.NO_PROXY\":{\"state\":\"empty\",\"display\":\"EMPTY\",\"token\":null,\"reason\":\"NONE\",\"auth_present\":null},\"exec.node\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"75a3b29eae9e027bf4b67c5d40a3666010e6de1351fb8aa20e4a8ee38e28ca27\",\"reason\":\"NONE\",\"auth_present\":null},\"exec.npx\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb\",\"reason\":\"NONE\",\"auth_present\":null},\"exec.codex\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae\",\"reason\":\"NONE\",\"auth_present\":null},\"exec.python\":{\"state\":\"present\",\"display\":\"REDACTED\",\"token\":\"0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5\",\"reason\":\"NONE\",\"auth_present\":null}},\"path_entries\":[{\"index\":0,\"token\":\"01b3bdae65af53e67e77c40fc40783ef5583aba765f31e7a2c9430a6a8c8ed64\",\"status\":\"searched\",\"reason\":\"NONE\"},{\"index\":1,\"token\":\"6c941c73a1b7166a1c664e2b4587eff9d2d737d29619ce41e5ec51f7d896750e\",\"status\":\"searched\",\"reason\":\"NONE\"}],\"resolutions\":{\"node\":{\"certainty\":\"found\",\"first_observed\":\"75a3b29eae9e027bf4b67c5d40a3666010e6de1351fb8aa20e4a8ee38e28ca27\",\"entry_index\":1,\"reason\":\"NONE\"},\"npx\":{\"certainty\":\"found\",\"first_observed\":\"f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb\",\"entry_index\":0,\"reason\":\"NONE\"},\"codex\":{\"certainty\":\"found\",\"first_observed\":\"1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae\",\"entry_index\":0,\"reason\":\"NONE\"},\"python\":{\"certainty\":\"found\",\"first_observed\":\"0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5\",\"entry_index\":0,\"reason\":\"NONE\"}}}}"
+      }
+    ],
+    "structuredContent": {
+      "ok": true,
+      "snapshot": {
+        "schema_version": "windoctor.snapshot/1",
+        "snapshot_id": "11111111-1111-4111-8111-111111111111",
+        "captured_at": "2026-11-11T01:00:00Z",
+        "collector": {
+          "name": "windoctor",
+          "version": "0.0.0"
+        },
+        "source": {
+          "declared_context": "mcp",
+          "observed_via": "current_process",
+          "process_instance_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+        },
+        "policy": {
+          "privacy": 1,
+          "normalization": 1,
+          "resolver": 1,
+          "scope_id": "192dc49861428938df4113f0e490a15fe999700eedcfc5b43b2dc3029e784f61"
+        },
+        "os": {
+          "platform": "win32",
+          "version": "10.0.0"
+        },
+        "completion": "complete",
+        "observations": {
+          "cwd": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "d105afebf27f8db7a2bffe05178527eeb4b2405b2c6b337159da703ce3c5175f",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "env.PATH": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "f230b07e46e559e4bec68227214ae4ebaf81f0a907e3ba04e327e0290c439549",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "env.PATHEXT": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "7d0c7ee8d83d7d17a40e978789e731c3ffa70fd771a7f87fab97e1398eb0cac8",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "env.HTTP_PROXY": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "568cf336bde65cd3536d81c8beafc2da655193e1e6a9df1592ee1db38497f969",
+            "reason": "NONE",
+            "auth_present": false
+          },
+          "env.HTTPS_PROXY": {
+            "state": "missing",
+            "display": "MISSING",
+            "token": null,
+            "reason": "NOT_SET",
+            "auth_present": null
+          },
+          "env.ALL_PROXY": {
+            "state": "missing",
+            "display": "MISSING",
+            "token": null,
+            "reason": "NOT_SET",
+            "auth_present": null
+          },
+          "env.NO_PROXY": {
+            "state": "empty",
+            "display": "EMPTY",
+            "token": null,
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "exec.node": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "75a3b29eae9e027bf4b67c5d40a3666010e6de1351fb8aa20e4a8ee38e28ca27",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "exec.npx": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "exec.codex": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae",
+            "reason": "NONE",
+            "auth_present": null
+          },
+          "exec.python": {
+            "state": "present",
+            "display": "REDACTED",
+            "token": "0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5",
+            "reason": "NONE",
+            "auth_present": null
+          }
+        },
+        "path_entries": [
+          {
+            "index": 0,
+            "token": "01b3bdae65af53e67e77c40fc40783ef5583aba765f31e7a2c9430a6a8c8ed64",
+            "status": "searched",
+            "reason": "NONE"
+          },
+          {
+            "index": 1,
+            "token": "6c941c73a1b7166a1c664e2b4587eff9d2d737d29619ce41e5ec51f7d896750e",
+            "status": "searched",
+            "reason": "NONE"
+          }
+        ],
+        "resolutions": {
+          "node": {
+            "certainty": "found",
+            "first_observed": "75a3b29eae9e027bf4b67c5d40a3666010e6de1351fb8aa20e4a8ee38e28ca27",
+            "entry_index": 1,
+            "reason": "NONE"
+          },
+          "npx": {
+            "certainty": "found",
+            "first_observed": "f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb",
+            "entry_index": 0,
+            "reason": "NONE"
+          },
+          "codex": {
+            "certainty": "found",
+            "first_observed": "1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae",
+            "entry_index": 0,
+            "reason": "NONE"
+          },
+          "python": {
+            "certainty": "found",
+            "first_observed": "0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5",
+            "entry_index": 0,
+            "reason": "NONE"
+          }
+        }
+      }
+    },
+    "isError": false
+  }
+}

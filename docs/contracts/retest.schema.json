@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "windoctor retest contract v1",
+  "description": "Design contract. Structural validation does not replace MODEL/PRIVACY-IO/OPERATIONS semantic or bounded JSON checks.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "windoctor.retest/1"
+    },
+    "report_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "baseline_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "original_target_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "retest_target_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "completion": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "partial",
+        "failed"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/item"
+      },
+      "minItems": 0,
+      "maxItems": 11
+    }
+  },
+  "required": [
+    "schema_version",
+    "report_id",
+    "baseline_id",
+    "original_target_id",
+    "retest_target_id",
+    "completion",
+    "items"
+  ],
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "minLength": 36,
+      "maxLength": 36
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "pattern": "^(?:VALUE_DIFFERENCE|STATE_DIFFERENCE|AUTH_PRESENCE_DIFFERENCE):(?:cwd|env\\.PATH|env\\.PATHEXT|env\\.HTTP_PROXY|env\\.HTTPS_PROXY|env\\.ALL_PROXY|env\\.NO_PROXY|exec\\.node|exec\\.npx|exec\\.codex|exec\\.python)$",
+          "not": {
+            "pattern": "[^A-Za-z0-9_.:]"
+          },
+          "maxLength": 96
+        },
+        "subject": {
+          "enum": [
+            "cwd",
+            "env.PATH",
+            "env.PATHEXT",
+            "env.HTTP_PROXY",
+            "env.HTTPS_PROXY",
+            "env.ALL_PROXY",
+            "env.NO_PROXY",
+            "exec.node",
+            "exec.npx",
+            "exec.codex",
+            "exec.python"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "persists",
+            "no_longer_observed",
+            "unverifiable"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "RETEST_EQUAL",
+            "RETEST_DIFFERENT",
+            "RETEST_UNAVAILABLE"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "$ref": "#/definitions/uuid"
+                },
+                "pointer": {
+                  "type": "string",
+                  "enum": [
+                    "/observations/cwd",
+                    "/observations/env.PATH",
+                    "/observations/env.PATHEXT",
+                    "/observations/env.HTTP_PROXY",
+                    "/observations/env.HTTPS_PROXY",
+                    "/observations/env.ALL_PROXY",
+                    "/observations/env.NO_PROXY",
+                    "/observations/exec.node",
+                    "/observations/exec.npx",
+                    "/observations/exec.codex",
+                    "/observations/exec.python"
+                  ]
+                }
+              },
+              "required": [
+                "snapshot_id",
+                "pointer"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "$ref": "#/definitions/uuid"
+                },
+                "pointer": {
+                  "type": "string",
+                  "enum": [
+                    "/observations/cwd",
+                    "/observations/env.PATH",
+                    "/observations/env.PATHEXT",
+                    "/observations/env.HTTP_PROXY",
+                    "/observations/env.HTTPS_PROXY",
+                    "/observations/env.ALL_PROXY",
+                    "/observations/env.NO_PROXY",
+                    "/observations/exec.node",
+                    "/observations/exec.npx",
+                    "/observations/exec.codex",
+                    "/observations/exec.python"
+                  ]
+                }
+              },
+              "required": [
+                "snapshot_id",
+                "pointer"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "$ref": "#/definitions/uuid"
+                },
+                "pointer": {
+                  "type": "string",
+                  "enum": [
+                    "/observations/cwd",
+                    "/observations/env.PATH",
+                    "/observations/env.PATHEXT",
+                    "/observations/env.HTTP_PROXY",
+                    "/observations/env.HTTPS_PROXY",
+                    "/observations/env.ALL_PROXY",
+                    "/observations/env.NO_PROXY",
+                    "/observations/exec.node",
+                    "/observations/exec.npx",
+                    "/observations/exec.codex",
+                    "/observations/exec.python"
+                  ]
+                }
+              },
+              "required": [
+                "snapshot_id",
+                "pointer"
+              ]
+            }
+          ],
+          "additionalItems": false,
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "finding_id",
+        "subject",
+        "outcome",
+        "reason",
+        "evidence"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "outcome": {
+              "const": "persists"
+            },
+            "reason": {
+              "const": "RETEST_DIFFERENT"
+            }
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "no_longer_observed"
+            },
+            "reason": {
+              "const": "RETEST_EQUAL"
+            }
+          }
+        },
+        {
+          "properties": {
+            "outcome": {
+              "const": "unverifiable"
+            },
+            "reason": {
+              "const": "RETEST_UNAVAILABLE"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

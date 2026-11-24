@@ -1,0 +1,4 @@
+# T6 G0 direct dependencies; wheel-only, isolated CPython 3.14 Windows AMD64.
+# Runtime closure must be locked and verified before installation.
+mcp==2.3.0
+anyio>=4.10,<5

@@ -1,0 +1,247 @@
+{
+  "schema_version": "windoctor.comparison/1",
+  "report_id": "44444444-4444-4444-8444-444444444444",
+  "baseline_id": "11111111-1111-4111-8111-111111111111",
+  "target_id": "22222222-2222-4222-8222-222222222222",
+  "completion": "complete",
+  "comparisons": [
+    {
+      "subject": "cwd",
+      "result": "different",
+      "reason": "VALUE_CHANGED",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/cwd"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/cwd"
+        }
+      ]
+    },
+    {
+      "subject": "env.PATH",
+      "result": "different",
+      "reason": "VALUE_CHANGED",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.PATH"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.PATH"
+        }
+      ]
+    },
+    {
+      "subject": "env.PATHEXT",
+      "result": "equal",
+      "reason": "VALUE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.PATHEXT"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.PATHEXT"
+        }
+      ]
+    },
+    {
+      "subject": "env.HTTP_PROXY",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.HTTP_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.HTTP_PROXY"
+        }
+      ]
+    },
+    {
+      "subject": "env.HTTPS_PROXY",
+      "result": "equal",
+      "reason": "STATE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.HTTPS_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.HTTPS_PROXY"
+        }
+      ]
+    },
+    {
+      "subject": "env.ALL_PROXY",
+      "result": "equal",
+      "reason": "STATE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.ALL_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.ALL_PROXY"
+        }
+      ]
+    },
+    {
+      "subject": "env.NO_PROXY",
+      "result": "equal",
+      "reason": "STATE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.NO_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.NO_PROXY"
+        }
+      ]
+    },
+    {
+      "subject": "exec.node",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.node"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.node"
+        }
+      ]
+    },
+    {
+      "subject": "exec.npx",
+      "result": "equal",
+      "reason": "VALUE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.npx"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.npx"
+        }
+      ]
+    },
+    {
+      "subject": "exec.codex",
+      "result": "equal",
+      "reason": "VALUE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.codex"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.codex"
+        }
+      ]
+    },
+    {
+      "subject": "exec.python",
+      "result": "equal",
+      "reason": "VALUE_EQUAL",
+      "auth_changed": null,
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.python"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.python"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "VALUE_DIFFERENCE:cwd",
+      "rule_id": "VALUE_DIFFERENCE",
+      "subject": "cwd",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/cwd"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/cwd"
+        }
+      ]
+    },
+    {
+      "finding_id": "VALUE_DIFFERENCE:env.PATH",
+      "rule_id": "VALUE_DIFFERENCE",
+      "subject": "env.PATH",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.PATH"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.PATH"
+        }
+      ]
+    },
+    {
+      "finding_id": "STATE_DIFFERENCE:env.HTTP_PROXY",
+      "rule_id": "STATE_DIFFERENCE",
+      "subject": "env.HTTP_PROXY",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.HTTP_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.HTTP_PROXY"
+        }
+      ]
+    },
+    {
+      "finding_id": "STATE_DIFFERENCE:exec.node",
+      "rule_id": "STATE_DIFFERENCE",
+      "subject": "exec.node",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.node"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.node"
+        }
+      ]
+    }
+  ]
+}

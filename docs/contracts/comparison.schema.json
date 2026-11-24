@@ -1,0 +1,1965 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "windoctor comparison contract v1",
+  "description": "Design contract. Structural validation does not replace MODEL/PRIVACY-IO/OPERATIONS semantic or bounded JSON checks.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "windoctor.comparison/1"
+    },
+    "report_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "baseline_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "target_id": {
+      "$ref": "#/definitions/uuid"
+    },
+    "completion": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "partial",
+        "failed"
+      ]
+    },
+    "comparisons": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "cwd"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/cwd"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/cwd"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.PATH"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.PATH"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.PATH"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.PATHEXT"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.PATHEXT"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.PATHEXT"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.HTTP_PROXY"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.HTTP_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.HTTP_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "boolean"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "AUTH_PRESENCE_CHANGED"
+                },
+                "auth_changed": {
+                  "const": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.HTTPS_PROXY"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.HTTPS_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.HTTPS_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "boolean"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "AUTH_PRESENCE_CHANGED"
+                },
+                "auth_changed": {
+                  "const": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.ALL_PROXY"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.ALL_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.ALL_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "boolean"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "AUTH_PRESENCE_CHANGED"
+                },
+                "auth_changed": {
+                  "const": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "env.NO_PROXY"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.NO_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/env.NO_PROXY"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "exec.node"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.node"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.node"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "exec.npx"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.npx"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.npx"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "exec.codex"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.codex"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.codex"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "subject": {
+              "const": "exec.python"
+            },
+            "result": {
+              "enum": [
+                "equal",
+                "different",
+                "unknown",
+                "not_comparable"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "POLICY_MISMATCH",
+                "OBSERVATION_UNAVAILABLE",
+                "STATE_CHANGED",
+                "STATE_EQUAL",
+                "VALUE_CHANGED",
+                "AUTH_PRESENCE_CHANGED",
+                "VALUE_EQUAL"
+              ]
+            },
+            "auth_changed": {
+              "type": "null"
+            },
+            "evidence": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.python"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "snapshot_id": {
+                      "$ref": "#/definitions/uuid"
+                    },
+                    "pointer": {
+                      "const": "/observations/exec.python"
+                    }
+                  },
+                  "required": [
+                    "snapshot_id",
+                    "pointer"
+                  ]
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "subject",
+            "result",
+            "reason",
+            "auth_changed",
+            "evidence"
+          ],
+          "oneOf": [
+            {
+              "properties": {
+                "result": {
+                  "const": "not_comparable"
+                },
+                "reason": {
+                  "const": "POLICY_MISMATCH"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "unknown"
+                },
+                "reason": {
+                  "const": "OBSERVATION_UNAVAILABLE"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "STATE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "STATE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "different"
+                },
+                "reason": {
+                  "const": "VALUE_CHANGED"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "result": {
+                  "const": "equal"
+                },
+                "reason": {
+                  "const": "VALUE_EQUAL"
+                },
+                "auth_changed": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "additionalItems": false,
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/finding"
+      },
+      "minItems": 0,
+      "maxItems": 11
+    }
+  },
+  "required": [
+    "schema_version",
+    "report_id",
+    "baseline_id",
+    "target_id",
+    "completion",
+    "comparisons",
+    "findings"
+  ],
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "minLength": 36,
+      "maxLength": 36
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "pattern": "^(?:VALUE_DIFFERENCE|STATE_DIFFERENCE|AUTH_PRESENCE_DIFFERENCE):(?:cwd|env\\.PATH|env\\.PATHEXT|env\\.HTTP_PROXY|env\\.HTTPS_PROXY|env\\.ALL_PROXY|env\\.NO_PROXY|exec\\.node|exec\\.npx|exec\\.codex|exec\\.python)$",
+          "not": {
+            "pattern": "[^A-Za-z0-9_.:]"
+          },
+          "maxLength": 96
+        },
+        "rule_id": {
+          "enum": [
+            "VALUE_DIFFERENCE",
+            "STATE_DIFFERENCE",
+            "AUTH_PRESENCE_DIFFERENCE"
+          ]
+        },
+        "subject": {
+          "enum": [
+            "cwd",
+            "env.PATH",
+            "env.PATHEXT",
+            "env.HTTP_PROXY",
+            "env.HTTPS_PROXY",
+            "env.ALL_PROXY",
+            "env.NO_PROXY",
+            "exec.node",
+            "exec.npx",
+            "exec.codex",
+            "exec.python"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "$ref": "#/definitions/uuid"
+                },
+                "pointer": {
+                  "type": "string",
+                  "enum": [
+                    "/observations/cwd",
+                    "/observations/env.PATH",
+                    "/observations/env.PATHEXT",
+                    "/observations/env.HTTP_PROXY",
+                    "/observations/env.HTTPS_PROXY",
+                    "/observations/env.ALL_PROXY",
+                    "/observations/env.NO_PROXY",
+                    "/observations/exec.node",
+                    "/observations/exec.npx",
+                    "/observations/exec.codex",
+                    "/observations/exec.python"
+                  ]
+                }
+              },
+              "required": [
+                "snapshot_id",
+                "pointer"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "snapshot_id": {
+                  "$ref": "#/definitions/uuid"
+                },
+                "pointer": {
+                  "type": "string",
+                  "enum": [
+                    "/observations/cwd",
+                    "/observations/env.PATH",
+                    "/observations/env.PATHEXT",
+                    "/observations/env.HTTP_PROXY",
+                    "/observations/env.HTTPS_PROXY",
+                    "/observations/env.ALL_PROXY",
+                    "/observations/env.NO_PROXY",
+                    "/observations/exec.node",
+                    "/observations/exec.npx",
+                    "/observations/exec.codex",
+                    "/observations/exec.python"
+                  ]
+                }
+              },
+              "required": [
+                "snapshot_id",
+                "pointer"
+              ]
+            }
+          ],
+          "additionalItems": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "subject",
+        "evidence"
+      ]
+    }
+  }
+}

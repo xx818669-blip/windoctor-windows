@@ -1,0 +1,90 @@
+{
+  "schema_version": "windoctor.retest/1",
+  "report_id": "55555555-5555-4555-8555-555555555555",
+  "baseline_id": "11111111-1111-4111-8111-111111111111",
+  "original_target_id": "22222222-2222-4222-8222-222222222222",
+  "retest_target_id": "33333333-3333-4333-8333-333333333333",
+  "completion": "partial",
+  "items": [
+    {
+      "finding_id": "VALUE_DIFFERENCE:cwd",
+      "subject": "cwd",
+      "outcome": "persists",
+      "reason": "RETEST_DIFFERENT",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/cwd"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/cwd"
+        },
+        {
+          "snapshot_id": "33333333-3333-4333-8333-333333333333",
+          "pointer": "/observations/cwd"
+        }
+      ]
+    },
+    {
+      "finding_id": "VALUE_DIFFERENCE:env.PATH",
+      "subject": "env.PATH",
+      "outcome": "no_longer_observed",
+      "reason": "RETEST_EQUAL",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.PATH"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.PATH"
+        },
+        {
+          "snapshot_id": "33333333-3333-4333-8333-333333333333",
+          "pointer": "/observations/env.PATH"
+        }
+      ]
+    },
+    {
+      "finding_id": "STATE_DIFFERENCE:env.HTTP_PROXY",
+      "subject": "env.HTTP_PROXY",
+      "outcome": "no_longer_observed",
+      "reason": "RETEST_EQUAL",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/env.HTTP_PROXY"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/env.HTTP_PROXY"
+        },
+        {
+          "snapshot_id": "33333333-3333-4333-8333-333333333333",
+          "pointer": "/observations/env.HTTP_PROXY"
+        }
+      ]
+    },
+    {
+      "finding_id": "STATE_DIFFERENCE:exec.node",
+      "subject": "exec.node",
+      "outcome": "unverifiable",
+      "reason": "RETEST_UNAVAILABLE",
+      "evidence": [
+        {
+          "snapshot_id": "11111111-1111-4111-8111-111111111111",
+          "pointer": "/observations/exec.node"
+        },
+        {
+          "snapshot_id": "22222222-2222-4222-8222-222222222222",
+          "pointer": "/observations/exec.node"
+        },
+        {
+          "snapshot_id": "33333333-3333-4333-8333-333333333333",
+          "pointer": "/observations/exec.node"
+        }
+      ]
+    }
+  ]
+}

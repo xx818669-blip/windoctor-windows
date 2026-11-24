@@ -1,0 +1,72 @@
+{
+  "manifest_version": "windoctor.mcp-projection/1",
+  "adapter_contract": "mcp-adapter/0.1.0",
+  "status": "data-only-not-runtime-validated",
+  "source": {
+    "path": "docs/contracts/snapshot.schema.json",
+    "dialect": "http://json-schema.org/draft-07/schema#",
+    "sha256": "c89808c0c46feb598030eca7c410b2249f5e597695cf352067c3a4d3f5c6b88f"
+  },
+  "projection": {
+    "output_path": "docs/mcp/fixtures/capture.output.schema.json",
+    "pointer": "/$defs/coreSnapshot",
+    "dialect": "https://json-schema.org/draft/2020-12/schema",
+    "canonical_sha256": "b5de73d5ab4690a74adda93f3cb60cd1230068be894e1334533544e73d92486f",
+    "operations": [
+      "remove source root $schema",
+      "rename definitions to $defs",
+      "rebase local $ref to #/$defs/coreSnapshot/$defs/..."
+    ],
+    "unsupported_keyword_policy": "stop and require review",
+    "additional_envelope_constraint": "source.declared_context=mcp via a separate allOf; pure coreSnapshot projection unchanged"
+  },
+  "canonical_hash_encoding": "UTF-8 JSON, ensure_ascii=false, sort_keys=true, separators=(',', ':'), no trailing LF",
+  "standalone_output_sha256": "1d0eb7de3cd1b0009398cd554821e3d12b3dd2fa895b367b60efc29e91cc4c41",
+  "tool_embedded_input_canonical_sha256": "32585c1386928b39118f2801cbd8b63ec6466aff01ad18d390b52b8652ca1acf",
+  "tool_embedded_output_canonical_sha256": "0ce76fe305f98f33e54308980ae6f12dc8dd8bea2a94d7ad87c5a54ab5aba87b",
+  "legacy_tool_root_types": {
+    "inputSchema": "object",
+    "outputSchema": "object",
+    "required_literal": "object",
+    "verification": "offline positive and missing/wrong-type negative checks; no SDK executed"
+  },
+  "core_error_data": {
+    "source_path": "cli/shared/errors.py",
+    "source_sha256": "0b299e957c9b6f66d414ca096ffa284bc840b1a1629ea0be85402b072a600fe1",
+    "copy_method": "offline allowlisted AST extraction of literal enum and pointer regex; schema stores data, no runtime private import",
+    "codes": [
+      "E_ARGUMENT",
+      "E_VERSION",
+      "E_INPUT_LIMIT",
+      "E_JSON",
+      "E_SCHEMA",
+      "E_SEMANTIC",
+      "E_ID_CONFLICT",
+      "E_SCOPE_FORMAT",
+      "E_SCOPE_UNAVAILABLE",
+      "E_INPUT_IO",
+      "E_OUTPUT_EXISTS",
+      "E_OUTPUT_ALIAS",
+      "E_OUTPUT_IO",
+      "E_OUTPUT_PARTIAL",
+      "E_INTERNAL"
+    ],
+    "stages": [
+      "arguments",
+      "read",
+      "validate",
+      "scope",
+      "capture",
+      "compare",
+      "retest",
+      "write",
+      "internal"
+    ]
+  },
+  "core_vector_scope": {
+    "original_structure_cases": 36,
+    "snapshot_projection_equivalence_cases": 23,
+    "non_snapshot_not_applicable": 13
+  },
+  "limits": "Structure checks do not certify core semantics, source authenticity, SDK or client compatibility."
+}

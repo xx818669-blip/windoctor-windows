@@ -1,0 +1,25 @@
+{
+  "jsonrpc": "2.0",
+  "id": "synthetic-capture-1",
+  "result": {
+    "resultType": "complete",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"ok\":false,\"error\":{\"origin\":\"adapter\",\"detail\":{\"code\":\"A_BUSY\",\"stage\":\"dispatch\",\"pointer\":\"/request\"}}}"
+      }
+    ],
+    "structuredContent": {
+      "ok": false,
+      "error": {
+        "origin": "adapter",
+        "detail": {
+          "code": "A_BUSY",
+          "stage": "dispatch",
+          "pointer": "/request"
+        }
+      }
+    },
+    "isError": true
+  }
+}

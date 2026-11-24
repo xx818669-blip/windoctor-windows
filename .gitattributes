@@ -1,0 +1,13 @@
+* text=auto
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+docs/mcp/tools/verify_materials.ps1 text eol=lf
+mcp/requirements.lock text eol=lf
+mcp/requirements-py311-win_amd64.lock text eol=lf

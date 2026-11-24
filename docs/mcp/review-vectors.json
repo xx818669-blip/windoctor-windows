@@ -1,0 +1,1791 @@
+{
+  "document_version": "windoctor.mcp-review-vectors/1",
+  "adapter_candidate": "mcp-adapter/0.1.0",
+  "material_status": "data-only",
+  "execution_status": "design-only",
+  "notice": "Public synthetic materials. Offline schema/projection/data checks are runnable separately; SDK, framing, cancellation, threading, DPAPI and client compatibility behavior has NOT been exercised.",
+  "case_count": 145,
+  "case_counts": {
+    "schema_cases": 68,
+    "protocol_version_matrix": 5,
+    "request_cases": 21,
+    "wire_semantic_cases": 6,
+    "frame_cases": 23,
+    "concurrency_cases": 7,
+    "scope_source_cases": 6,
+    "packaging_cases": 3,
+    "projection_cases": 6
+  },
+  "schema_cases": [
+    {
+      "id": "INPUT-EMPTY-OBJECT",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {},
+      "expected_valid": true
+    },
+    {
+      "id": "INPUT-NULL",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": null,
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-ARRAY",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": [],
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-STRING",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": "synthetic",
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-NUMBER",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": 1,
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-BOOLEAN",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": false,
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-PATH",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "path": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-OUT",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "out": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-SCOPE",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "scope": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-SCOPE_FILE",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "scope_file": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-CONTEXT",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "context": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-ENV",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "env": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-COMMAND",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "command": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-TIMEOUT",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "timeout": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "INPUT-KEY-UNEXPECTED",
+      "schema": "fixtures/capture.input.schema.json",
+      "inline": {
+        "unexpected": "PUBLIC_SYNTHETIC_INPUT"
+      },
+      "expected_valid": false
+    },
+    {
+      "id": "OUTPUT-SUCCESS-COMPLETE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": []
+    },
+    {
+      "id": "OUTPUT-SUCCESS-PARTIAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot",
+          "value": {
+            "schema_version": "windoctor.snapshot/1",
+            "snapshot_id": "33333333-3333-4333-8333-333333333333",
+            "captured_at": "2026-11-11T01:10:00Z",
+            "collector": {
+              "name": "windoctor",
+              "version": "0.0.0"
+            },
+            "source": {
+              "declared_context": "mcp",
+              "observed_via": "current_process",
+              "process_instance_id": "cccccccc-cccc-4ccc-8ccc-cccccccccccc"
+            },
+            "policy": {
+              "privacy": 1,
+              "normalization": 1,
+              "resolver": 1,
+              "scope_id": "192dc49861428938df4113f0e490a15fe999700eedcfc5b43b2dc3029e784f61"
+            },
+            "os": {
+              "platform": "win32",
+              "version": "10.0.0"
+            },
+            "completion": "partial",
+            "observations": {
+              "cwd": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "16d4c739638504d8f0d021d4f35c9510a6bc39b5a885268530e980550d0cf0bc",
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "env.PATH": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "f230b07e46e559e4bec68227214ae4ebaf81f0a907e3ba04e327e0290c439549",
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "env.PATHEXT": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "7d0c7ee8d83d7d17a40e978789e731c3ffa70fd771a7f87fab97e1398eb0cac8",
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "env.HTTP_PROXY": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "568cf336bde65cd3536d81c8beafc2da655193e1e6a9df1592ee1db38497f969",
+                "reason": "NONE",
+                "auth_present": false
+              },
+              "env.HTTPS_PROXY": {
+                "state": "missing",
+                "display": "MISSING",
+                "token": null,
+                "reason": "NOT_SET",
+                "auth_present": null
+              },
+              "env.ALL_PROXY": {
+                "state": "missing",
+                "display": "MISSING",
+                "token": null,
+                "reason": "NOT_SET",
+                "auth_present": null
+              },
+              "env.NO_PROXY": {
+                "state": "empty",
+                "display": "EMPTY",
+                "token": null,
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "exec.node": {
+                "state": "skipped",
+                "display": "SKIPPED",
+                "token": null,
+                "reason": "INCOMPLETE_SEARCH",
+                "auth_present": null
+              },
+              "exec.npx": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb",
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "exec.codex": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae",
+                "reason": "NONE",
+                "auth_present": null
+              },
+              "exec.python": {
+                "state": "present",
+                "display": "REDACTED",
+                "token": "0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5",
+                "reason": "NONE",
+                "auth_present": null
+              }
+            },
+            "path_entries": [
+              {
+                "index": 0,
+                "token": "01b3bdae65af53e67e77c40fc40783ef5583aba765f31e7a2c9430a6a8c8ed64",
+                "status": "searched",
+                "reason": "NONE"
+              },
+              {
+                "index": 1,
+                "token": "6c941c73a1b7166a1c664e2b4587eff9d2d737d29619ce41e5ec51f7d896750e",
+                "status": "inaccessible",
+                "reason": "ACCESS_DENIED"
+              }
+            ],
+            "resolutions": {
+              "node": {
+                "certainty": "indeterminate",
+                "first_observed": null,
+                "entry_index": null,
+                "reason": "INCOMPLETE_SEARCH"
+              },
+              "npx": {
+                "certainty": "found",
+                "first_observed": "f52b31b09f6e459e5d65f67c42724a9af13e2e598ccc0bdd47b235b723e3a3cb",
+                "entry_index": 0,
+                "reason": "NONE"
+              },
+              "codex": {
+                "certainty": "found",
+                "first_observed": "1b9b665f4971e3bb45623f7fa3f35a5a4e0551a87247eb49bffbef7a9492ccae",
+                "entry_index": 0,
+                "reason": "NONE"
+              },
+              "python": {
+                "certainty": "found",
+                "first_observed": "0d8e716d757a667905acf7a27d9d3c0843fdb0a7b7758c455152c036e5c649b5",
+                "entry_index": 0,
+                "reason": "NONE"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-SUCCESS-FAILED",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot",
+          "value": {
+            "schema_version": "windoctor.snapshot/1",
+            "snapshot_id": "99999999-9999-4999-8999-999999999999",
+            "captured_at": "2026-11-11T01:00:00Z",
+            "collector": {
+              "name": "windoctor",
+              "version": "0.0.0"
+            },
+            "source": {
+              "declared_context": "mcp",
+              "observed_via": "current_process",
+              "process_instance_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+            },
+            "policy": {
+              "privacy": 1,
+              "normalization": 1,
+              "resolver": 1,
+              "scope_id": "192dc49861428938df4113f0e490a15fe999700eedcfc5b43b2dc3029e784f61"
+            },
+            "os": {
+              "platform": "win32",
+              "version": "10.0.0"
+            },
+            "completion": "failed",
+            "observations": {
+              "cwd": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.PATH": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.PATHEXT": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.HTTP_PROXY": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.HTTPS_PROXY": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.ALL_PROXY": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "env.NO_PROXY": {
+                "state": "error",
+                "display": "ERROR",
+                "token": null,
+                "reason": "READ_FAILED",
+                "auth_present": null
+              },
+              "exec.node": {
+                "state": "skipped",
+                "display": "SKIPPED",
+                "token": null,
+                "reason": "INCOMPLETE_SEARCH",
+                "auth_present": null
+              },
+              "exec.npx": {
+                "state": "skipped",
+                "display": "SKIPPED",
+                "token": null,
+                "reason": "INCOMPLETE_SEARCH",
+                "auth_present": null
+              },
+              "exec.codex": {
+                "state": "skipped",
+                "display": "SKIPPED",
+                "token": null,
+                "reason": "INCOMPLETE_SEARCH",
+                "auth_present": null
+              },
+              "exec.python": {
+                "state": "skipped",
+                "display": "SKIPPED",
+                "token": null,
+                "reason": "INCOMPLETE_SEARCH",
+                "auth_present": null
+              }
+            },
+            "path_entries": [],
+            "resolutions": {
+              "node": {
+                "certainty": "indeterminate",
+                "first_observed": null,
+                "entry_index": null,
+                "reason": "INCOMPLETE_SEARCH"
+              },
+              "npx": {
+                "certainty": "indeterminate",
+                "first_observed": null,
+                "entry_index": null,
+                "reason": "INCOMPLETE_SEARCH"
+              },
+              "codex": {
+                "certainty": "indeterminate",
+                "first_observed": null,
+                "entry_index": null,
+                "reason": "INCOMPLETE_SEARCH"
+              },
+              "python": {
+                "certainty": "indeterminate",
+                "first_observed": null,
+                "entry_index": null,
+                "reason": "INCOMPLETE_SEARCH"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-A_ARGUMENT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "adapter",
+          "detail": {
+            "code": "A_ARGUMENT",
+            "stage": "arguments",
+            "pointer": "/arguments"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-A_BUSY",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "adapter",
+          "detail": {
+            "code": "A_BUSY",
+            "stage": "dispatch",
+            "pointer": "/request"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-A_TIMEOUT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "adapter",
+          "detail": {
+            "code": "A_TIMEOUT",
+            "stage": "capture",
+            "pointer": "/request"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-A_OUTPUT_LIMIT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "adapter",
+          "detail": {
+            "code": "A_OUTPUT_LIMIT",
+            "stage": "serialize",
+            "pointer": "/result"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-A_INTERNAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "adapter",
+          "detail": {
+            "code": "A_INTERNAL",
+            "stage": "capture",
+            "pointer": "/result"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_ARGUMENT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_ARGUMENT",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_VERSION",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_VERSION",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_INPUT_LIMIT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INPUT_LIMIT",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_JSON",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_JSON",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_SCHEMA",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SCHEMA",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_SEMANTIC",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SEMANTIC",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_ID_CONFLICT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_ID_CONFLICT",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_SCOPE_FORMAT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SCOPE_FORMAT",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_SCOPE_UNAVAILABLE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SCOPE_UNAVAILABLE",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_INPUT_IO",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INPUT_IO",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_OUTPUT_EXISTS",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_OUTPUT_EXISTS",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_OUTPUT_ALIAS",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_OUTPUT_ALIAS",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_OUTPUT_IO",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_OUTPUT_IO",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_OUTPUT_PARTIAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_OUTPUT_PARTIAL",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-E_INTERNAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "capture",
+            "pointer": "/observations/env.PATH"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-ARGUMENTS",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "arguments",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-READ",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "read",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-VALIDATE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "validate",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-SCOPE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "scope",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-CAPTURE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "capture",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-COMPARE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "compare",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-RETEST",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "retest",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-WRITE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "write",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-CORE-STAGE-INTERNAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": true,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "internal",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-INVALID-SOURCE-TERMINAL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot/source/declared_context",
+          "value": "terminal"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SOURCE-AGENT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot/source/declared_context",
+          "value": "agent"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SOURCE-UNSPECIFIED",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot/source/declared_context",
+          "value": "unspecified"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SOURCE-HOST-CLAIM",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot/source/observed_via",
+          "value": "host_daemon"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SUCCESS-MISSING-SNAPSHOT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "remove",
+          "path": "/snapshot"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SUCCESS-ADDED-ERROR",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error",
+          "value": {}
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-SUCCESS-ADDED-RAW",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/raw",
+          "value": "PUBLIC_SYNTHETIC_PATH"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ATOM-RAW-DISPLAY",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-result.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot/observations/cwd/display",
+          "value": "PUBLIC_SYNTHETIC_PATH"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ORIGIN",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/origin",
+          "value": "unexpected"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ADAPTER-CORE-CODE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/detail/code",
+          "value": "E_INTERNAL"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ADAPTER-UNKNOWN-CODE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/detail/code",
+          "value": "A_FRAME_REJECTED"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ADAPTER-STAGE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/detail/stage",
+          "value": "mcp"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ADAPTER-POINTER",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/detail/pointer",
+          "value": "/untrusted/input"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ADAPTER-TRACE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/error/detail/traceback",
+          "value": "PUBLIC_SYNTHETIC_TRACE"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ERROR-ADDED-SNAPSHOT",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot",
+          "value": {}
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-ERROR-MISSING-DETAIL",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "base": "fixtures/capture-error.modern.json",
+      "extract": "/result/structuredContent",
+      "mutations": [
+        {
+          "op": "remove",
+          "path": "/error/detail"
+        }
+      ]
+    },
+    {
+      "id": "OUTPUT-INVALID-CORE-ADAPTER-CODE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "A_INTERNAL",
+            "stage": "internal",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-INVALID-CORE-STAGE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "dispatch",
+            "pointer": "/input"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-INVALID-CORE-UNKNOWN-POINTER",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SCHEMA",
+            "stage": "validate",
+            "pointer": "/observations/PRIVATE_SYNTHETIC_KEY"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-INVALID-CORE-POINTER-NEWLINE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_SCHEMA",
+            "stage": "validate",
+            "pointer": "/input\n"
+          }
+        }
+      }
+    },
+    {
+      "id": "OUTPUT-INVALID-CORE-RAW-MESSAGE",
+      "schema": "fixtures/capture.output.schema.json",
+      "expected_valid": false,
+      "inline": {
+        "ok": false,
+        "error": {
+          "origin": "core",
+          "detail": {
+            "code": "E_INTERNAL",
+            "stage": "internal",
+            "pointer": "/input",
+            "message": "PUBLIC_SYNTHETIC_EXCEPTION"
+          }
+        }
+      }
+    }
+  ],
+  "protocol_version_matrix": [
+    {
+      "id": "PROTOCOL-2026-07-28",
+      "protocol_version": "2026-07-28",
+      "era": "modern",
+      "expected": {
+        "handshake": "none; per-request protocolVersion and clientCapabilities",
+        "resultType": "complete required",
+        "ping": "not a modern method; valid modern metadata yields -32601",
+        "tool_schema_roots": "inputSchema.type and outputSchema.type must explicitly be object",
+        "text_fallback": "same compact envelope JSON",
+        "compatibility_status": "G0 not run; advertised version requires verification"
+      }
+    },
+    {
+      "id": "PROTOCOL-2025-11-25",
+      "protocol_version": "2025-11-25",
+      "era": "legacy",
+      "expected": {
+        "handshake": "initialize then initialized via public SDK runner",
+        "resultType": "do not inject modern field; pinned SDK converts through the 2025-11-25 legacy-era model, not historical-date field clipping",
+        "ping": "legacy control-plane method after initialization",
+        "tool_schema_roots": "inputSchema.type and outputSchema.type must explicitly be object",
+        "text_fallback": "same compact envelope JSON",
+        "compatibility_status": "G0 not run; advertised version requires verification"
+      }
+    },
+    {
+      "id": "PROTOCOL-2025-06-18",
+      "protocol_version": "2025-06-18",
+      "era": "legacy",
+      "expected": {
+        "handshake": "initialize then initialized via public SDK runner",
+        "resultType": "do not inject modern field; pinned SDK converts through the 2025-11-25 legacy-era model, not historical-date field clipping",
+        "ping": "legacy control-plane method after initialization",
+        "tool_schema_roots": "inputSchema.type and outputSchema.type must explicitly be object",
+        "text_fallback": "same compact envelope JSON",
+        "compatibility_status": "G0 not run; advertised version requires verification"
+      }
+    },
+    {
+      "id": "PROTOCOL-2025-03-26",
+      "protocol_version": "2025-03-26",
+      "era": "legacy",
+      "expected": {
+        "handshake": "initialize then initialized via public SDK runner",
+        "resultType": "do not inject modern field; pinned SDK converts through the 2025-11-25 legacy-era model, not historical-date field clipping",
+        "ping": "legacy control-plane method after initialization",
+        "tool_schema_roots": "inputSchema.type and outputSchema.type must explicitly be object",
+        "text_fallback": "same compact envelope JSON",
+        "compatibility_status": "G0 not run; advertised version requires verification"
+      }
+    },
+    {
+      "id": "PROTOCOL-2024-11-05",
+      "protocol_version": "2024-11-05",
+      "era": "legacy",
+      "expected": {
+        "handshake": "initialize then initialized via public SDK runner",
+        "resultType": "do not inject modern field; pinned SDK converts through the 2025-11-25 legacy-era model, not historical-date field clipping",
+        "ping": "legacy control-plane method after initialization",
+        "tool_schema_roots": "inputSchema.type and outputSchema.type must explicitly be object",
+        "text_fallback": "same compact envelope JSON",
+        "compatibility_status": "G0 not run; advertised version requires verification"
+      }
+    }
+  ],
+  "request_cases": [
+    {
+      "id": "REQUEST-ARGUMENTS-OMITTED",
+      "given": "Known tool omits arguments",
+      "expected": "Normalize only omission to {}; distinguish explicit null using public ctx.params field presence, never params.arguments or {}"
+    },
+    {
+      "id": "REQUEST-INVALID-ARGUMENTS",
+      "given": "Known tool arguments is a valid object containing extra keys",
+      "expected": "Tool result isError=true with adapter A_ARGUMENT; no core error or raw echo"
+    },
+    {
+      "id": "REQUEST-UNKNOWN-TOOL",
+      "given": "Unknown tool with a sensitive-looking synthetic name",
+      "expected": "JSON-RPC -32602; fixed message, no reflection"
+    },
+    {
+      "id": "REQUEST-INVALID-TOOL-PARAMS",
+      "given": "Valid JSON-RPC request envelope with tools/call parameters missing name, wrongly typed name, or explicit null/array/scalar arguments",
+      "expected": "JSON-RPC -32602 Invalid params with original legal ID; SDK may reject arrays/scalars before handler; reject explicit null by public field presence, never A_ARGUMENT; invalid RPC envelopes are a separate -32600 boundary case"
+    },
+    {
+      "id": "REQUEST-META-MISSING",
+      "given": "After modern is locked, a non-initialize request lacks required version or clientCapabilities",
+      "expected": "JSON-RPC -32602; cannot borrow prior metadata or reinterpret connection as legacy"
+    },
+    {
+      "id": "REQUEST-VERSION-UNSUPPORTED",
+      "given": "Modern request has an unsupported date-shaped version",
+      "expected": "JSON-RPC -32022; checked supported/requested data only; no silent downgrade"
+    },
+    {
+      "id": "REQUEST-CAPABILITY-INDEPENDENT",
+      "given": "Successive requests declare different capabilities",
+      "expected": "Read each request metadata independently; never request sampling/elicitation/roots"
+    },
+    {
+      "id": "REQUEST-LIST-BUSY",
+      "given": "tools/list while capture slot is draining",
+      "expected": "One fixed tool still listed; listChanged=false; no nextCursor"
+    },
+    {
+      "id": "REQUEST-FIRST-DISCOVER-NO-META",
+      "given": "First JSONRPCRequest sent to SDK is server/discover without the version metadata key",
+      "expected": "Locks legacy before success; legacy unknown method -32601, not blanket -32602; boundary-rejected frames and notifications do not select era"
+    },
+    {
+      "id": "REQUEST-FIRST-LIST-NO-META",
+      "given": "First JSONRPCRequest sent to SDK is tools/list without the version metadata key",
+      "expected": "Locks legacy before success; before initialize the result is -32602; do not reinterpret it as a modern missing-metadata error"
+    },
+    {
+      "id": "REQUEST-FIRST-VERSION-TYPE-INVALID",
+      "given": "First non-initialize JSONRPCRequest has mapping params._meta with protocolVersion=null or number and clientCapabilities={}",
+      "expected": "Sent to SDK and locks modern based on key presence before validation; then -32602 Invalid params, never legacy fallback"
+    },
+    {
+      "id": "REQUEST-FIRST-VERSION-FREETEXT",
+      "given": "A bounded request has params._meta.io.modelcontextprotocol/protocolVersion=PUBLIC_SYNTHETIC_VERSION_TEXT as a non-date string",
+      "expected": "Boundary replies -32602 Invalid params with original legal ID and no data; not sent to SDK and does not select era"
+    },
+    {
+      "id": "REQUEST-INITIALIZE-VERSION-FREETEXT",
+      "given": "An initialize request has a non-date string in params.protocolVersion, in any connection era",
+      "expected": "Boundary replies -32602 Invalid params with legal ID and no data before SDK; do not let modern initialize -32022 echo arbitrary requested text"
+    },
+    {
+      "id": "REQUEST-FIRST-VERSION-UNKNOWN-DATE",
+      "given": "First non-initialize JSONRPCRequest has unknown date-shaped protocolVersion=1900-01-01 and clientCapabilities={}",
+      "expected": "Sent to SDK and locks modern; -32022 preserves required data.requested=1900-01-01 and fixed supported-version data; writer must not delete required requested",
+      "expected_error_data": {
+        "required_fields": [
+          "supported",
+          "requested"
+        ],
+        "requested": "1900-01-01",
+        "supported": "fixed supported-version data"
+      }
+    },
+    {
+      "id": "REQUEST-NOTIFICATION-NO-ERA",
+      "given": "Valid or malformed notification arrives before the first SDK request",
+      "expected": "Notification does not choose era; do not wait for a successful request to lock era once a JSONRPCRequest reaches SDK"
+    },
+    {
+      "id": "REQUEST-MODERN-PING",
+      "given": "Modern locked and ping carries valid modern metadata",
+      "expected": "JSON-RPC -32601 Method not found; modern has no ping method"
+    },
+    {
+      "id": "REQUEST-MODERN-PING-NO-META",
+      "given": "Modern locked and ping omits required metadata",
+      "expected": "JSON-RPC -32602 Invalid params before method lookup"
+    },
+    {
+      "id": "REQUEST-MODERN-INITIALIZE-DATE",
+      "given": "Modern locked then initialize has date-shaped params.protocolVersion, with or without metadata",
+      "expected": "Runner prioritizes -32022; retain supported plus requested=date string; no legacy handshake or era switch",
+      "expected_error_data": {
+        "required_fields": [
+          "supported",
+          "requested"
+        ],
+        "requested": "the date-shaped params.protocolVersion",
+        "supported": "fixed supported-version data"
+      }
+    },
+    {
+      "id": "REQUEST-MODERN-INITIALIZE-NONSTRING",
+      "given": "Modern locked then initialize has missing/null/non-string params.protocolVersion, with or without metadata",
+      "expected": "Runner prioritizes -32022 with its special data containing only supported; do not invent or inject requested; no legacy handshake or era switch",
+      "expected_error_data": {
+        "required_fields": [
+          "supported"
+        ],
+        "forbidden_fields": [
+          "requested"
+        ],
+        "supported": "fixed supported-version data"
+      }
+    },
+    {
+      "id": "REQUEST-LEGACY-MODERN-META",
+      "given": "Legacy locked and a non-initialize request contains the protocolVersion metadata key",
+      "expected": "JSON-RPC -32600 Invalid Request; key presence triggers guard, not upgrade to modern"
+    },
+    {
+      "id": "REQUEST-LEGACY-INITIALIZE-EXEMPT",
+      "given": "Legacy initialize proposes 2026-07-28 and may contain protocolVersion metadata",
+      "expected": "Initialize is exempt from the non-initialize metadata guard; remains legacy and negotiates fallback 2025-11-25"
+    }
+  ],
+  "wire_semantic_cases": [
+    {
+      "id": "WIRE-PARTIAL-NOT-ERROR",
+      "given": "Valid partial snapshot",
+      "expected": "resultType=complete; isError=false; ok=true; completion remains partial"
+    },
+    {
+      "id": "WIRE-FAILED-NOT-ERROR",
+      "given": "Valid failed snapshot with no decisive observations",
+      "expected": "resultType=complete; isError=false; ok=true; completion remains failed"
+    },
+    {
+      "id": "WIRE-CORE-SAFEERROR",
+      "given": "Core raises SafeError",
+      "expected": "isError=true; origin=core; only code/stage/pointer; no CLI stderr forwarding"
+    },
+    {
+      "id": "WIRE-TEXT-IDENTICAL",
+      "given": "Any normal success or tool-error result",
+      "expected": "Exactly one TextContent; parsed JSON equals structuredContent; text is compact JSON"
+    },
+    {
+      "id": "WIRE-ERROR-SCHEMA",
+      "given": "Error envelope under declared outputSchema",
+      "expected": "Must validate against error branch; never inject it into snapshot-only schema"
+    },
+    {
+      "id": "WIRE-ID-CORRELATION",
+      "given": "Allowed JSON-RPC request ID contains synthetic marker",
+      "expected": "Preserve protocol correlation ID; do not reflect it into logs or diagnostic fields; boundary errors retain required explicit id:null and must not use exclude_none=True to omit it"
+    }
+  ],
+  "frame_cases": [
+    {
+      "id": "FRAME-LIMIT",
+      "given": "Input line exceeds 65536 bytes including LF",
+      "expected": "Bound before SDK decoding; fixed A_FRAME_REJECTED stderr event and close; no unbounded readline"
+    },
+    {
+      "id": "FRAME-INVALID-UTF8",
+      "given": "Invalid UTF-8 or BOM",
+      "expected": "No replacement decoding; fixed event and close without reflecting raw bytes"
+    },
+    {
+      "id": "FRAME-DUPLICATE-KEY",
+      "given": "JSON line repeats a key",
+      "expected": "Close with fixed A_FRAME_REJECTED event before duplicate evidence is lost; not sent to runner and no era selection"
+    },
+    {
+      "id": "FRAME-DEPTH",
+      "given": "Depth exceeds 16",
+      "expected": "Close with fixed A_FRAME_REJECTED event; no parser stack exhaustion or era selection"
+    },
+    {
+      "id": "FRAME-STRING-OBJECT",
+      "given": "String exceeds 4096 codepoints or object exceeds 128 keys",
+      "expected": "Close with fixed A_FRAME_REJECTED event; no SDK-first unlimited parse or era selection"
+    },
+    {
+      "id": "FRAME-NONFINITE-SURROGATE",
+      "given": "NaN/Infinity or unpaired surrogate",
+      "expected": "Close with fixed A_FRAME_REJECTED event; no raw output or era selection"
+    },
+    {
+      "id": "FRAME-BATCH",
+      "given": "JSON-RPC batch array",
+      "expected": "Close with fixed A_FRAME_REJECTED event; no batch handler or era selection"
+    },
+    {
+      "id": "FRAME-SDK-REFLECTION",
+      "given": "SDK exception, unknown method, cancellation reason or clientInfo contains synthetic private text",
+      "expected": "Sanitize final error/log boundary; no raw message/data/traceback"
+    },
+    {
+      "id": "FRAME-OUTPUT-LIMIT",
+      "given": "Whole output frame including JSON text copy exceeds 4194304 bytes",
+      "expected": "Small A_OUTPUT_LIMIT envelope; no truncation, omitted text copy or partial normal frame"
+    },
+    {
+      "id": "FRAME-STDOUT-FAILURE",
+      "given": "Output write or flush fails",
+      "expected": "Safe close; no repeated flush traceback or success claim"
+    },
+    {
+      "id": "FRAME-SHORT-JSON-SYNTAX",
+      "given": "Short complete UTF-8 LF frame within every bound but invalid JSON syntax",
+      "input_line": "{\"jsonrpc\":\"2.0\",}\n",
+      "expected": "Adapter boundary replies with public SDK JSONRPCError/ErrorData/SessionMessage through the sole writer, not SDK incoming stream; era unchanged",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32700,
+          "message": "Parse error"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-METHOD-TYPE",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":\"synthetic-invalid-envelope\",\"method\":7}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": "synthetic-invalid-envelope",
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-JSONRPC-VERSION",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"1.0\",\"id\":7,\"method\":\"tools/list\"}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": 7,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-BOOL-ID",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":true,\"method\":\"tools/list\"}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-NULL-ID",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":null,\"method\":\"tools/list\"}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-FLOAT-ID",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":1.5,\"method\":\"tools/list\"}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-MISSING-METHOD-NO-ID",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"params\":{}}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-INVALID-ENVELOPE-METHOD-TYPE-NO-ID",
+      "given": "Valid bounded JSON but invalid JSON-RPC envelope",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"method\":7}\n",
+      "expected": "Inspect original ID field presence before union/type validation; explicit invalid bool/null/other IDs are not notifications. Boundary -32600 Invalid Request preserves only unique bounded str/int ID, otherwise id:null; do not feed runner or choose era",
+      "expected_response": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32600,
+          "message": "Invalid Request"
+        }
+      },
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-NOTIFICATION-CANCEL-PARAMS",
+      "given": "Valid no-ID envelope with malformed method parameters or unknown notification",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/cancelled\",\"params\":{\"requestId\":[]}}\n",
+      "expected": "No response, no capture call and no era selection; do not mistake notification parameter errors for an invalid envelope",
+      "expected_response": null
+    },
+    {
+      "id": "FRAME-NOTIFICATION-UNKNOWN",
+      "given": "Valid no-ID envelope with malformed method parameters or unknown notification",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"method\":\"notifications/synthetic_unknown\",\"params\":{}}\n",
+      "expected": "No response, no capture call and no era selection; do not mistake notification parameter errors for an invalid envelope",
+      "expected_response": null
+    },
+    {
+      "id": "FRAME-NOTIFICATION-REQUEST-METHOD-NO-ID",
+      "given": "Valid no-ID envelope with malformed method parameters or unknown notification",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"capture_environment\",\"arguments\":{}}}\n",
+      "expected": "No response, no capture call and no era selection; do not mistake notification parameter errors for an invalid envelope",
+      "expected_response": null
+    },
+    {
+      "id": "FRAME-INVALID-RESPONSE",
+      "given": "Invalid response shape or mixed request/response cannot safely be classified",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":\"synthetic-response\",\"result\":{},\"error\":{\"code\":-32603,\"message\":\"synthetic\"}}\n",
+      "expected": "Close without an error response loop; do not feed rejected message to runner or choose era",
+      "expected_response": null,
+      "sdk_inbound": false
+    },
+    {
+      "id": "FRAME-MIXED-REQUEST-RESPONSE",
+      "given": "Invalid response shape or mixed request/response cannot safely be classified",
+      "input_line": "{\"jsonrpc\":\"2.0\",\"id\":\"synthetic-mixed\",\"method\":\"tools/list\",\"result\":{}}\n",
+      "expected": "Close without an error response loop; do not feed rejected message to runner or choose era",
+      "expected_response": null,
+      "sdk_inbound": false
+    }
+  ],
+  "concurrency_cases": [
+    {
+      "id": "SLOT-BUSY",
+      "events": [
+        "capture starts",
+        "second capture arrives"
+      ],
+      "expected": "A_BUSY immediately; one physical worker, no queue"
+    },
+    {
+      "id": "SLOT-TIMEOUT-DRAIN",
+      "events": [
+        "capture starts",
+        "10s application deadline expires",
+        "worker still blocked",
+        "second capture arrives",
+        "worker completes"
+      ],
+      "expected": "A_TIMEOUT once if not cancelled; second call A_BUSY; idle only after actual worker completion"
+    },
+    {
+      "id": "SLOT-CANCEL-DRAIN",
+      "events": [
+        "capture starts",
+        "peer cancellation accepted",
+        "worker still blocked",
+        "second capture arrives",
+        "worker completes"
+      ],
+      "expected": "No result/error/progress for cancelled request; A_BUSY on second call until actual completion; discard late result"
+    },
+    {
+      "id": "SLOT-CANCEL-TIMEOUT-RACE",
+      "events": [
+        "peer cancellation accepted",
+        "application timeout becomes ready"
+      ],
+      "expected": "No A_TIMEOUT response for the cancelled request; no double release"
+    },
+    {
+      "id": "SLOT-COMPLETE-CANCEL-RACE",
+      "events": [
+        "final response was already sent",
+        "late or repeated cancellation arrives"
+      ],
+      "expected": "Ignore safely; no duplicate response or raw reason log"
+    },
+    {
+      "id": "SLOT-CONTROL-PLANE",
+      "events": [
+        "capture blocked or draining",
+        "modern discover/list/cancel or legacy list/ping/cancel arrive"
+      ],
+      "expected": "Era-appropriate control plane remains responsive; modern ping is not a valid control method; synchronous capture must not block event loop"
+    },
+    {
+      "id": "SLOT-EOF",
+      "events": [
+        "worker blocked",
+        "stdin EOF",
+        "worker completes later"
+      ],
+      "expected": "Stop new requests and output; no late result; document no guaranteed bounded exit and host termination option"
+    }
+  ],
+  "scope_source_cases": [
+    {
+      "id": "SCOPE-STARTUP-FAILURE",
+      "given": "Scope unreadable, invalid or DPAPI unavailable at startup",
+      "expected": "No protocol stdout; fixed safe startup stderr; no fabricated request result"
+    },
+    {
+      "id": "SCOPE-STARTUP-ONLY",
+      "given": "Model tries to supply scope_file/path/context/environment",
+      "expected": "A_ARGUMENT; scope only from trusted startup configuration; no creation, rotation or fallback"
+    },
+    {
+      "id": "SCOPE-DELETE-AFTER-LOAD",
+      "given": "Scope file deleted after successful startup",
+      "expected": "Loaded in-memory scope persists; no automatic revocation claim; restart required to change scope"
+    },
+    {
+      "id": "SOURCE-PROCESS",
+      "given": "Repeated captures on one service process",
+      "expected": "declared_context=mcp; observed_via=current_process; same process_instance_id and different snapshot_id"
+    },
+    {
+      "id": "SOURCE-NO-HOST-CLAIM",
+      "given": "MCP result differs from terminal",
+      "expected": "Only observed server process environment; no daemon internals or fresh host inheritance claim"
+    },
+    {
+      "id": "SOURCE-EXPORT",
+      "given": "Client passes successful structuredContent directly to Diff",
+      "expected": "Extract snapshot and use approved core export flow; envelope is not a core Snapshot"
+    }
+  ],
+  "packaging_cases": [
+    {
+      "id": "PACKAGE-NAMESPACE",
+      "given": "Repository mcp directory exists beside installed mcp SDK",
+      "expected": "No mcp/__init__.py and no python -m mcp; public SDK import must resolve installed package"
+    },
+    {
+      "id": "PACKAGE-ENTRY",
+      "given": "Trusted local service launch",
+      "expected": "Use isolated MCP interpreter and explicit mcp/run_stdio.py; no CLI subprocess for capture"
+    },
+    {
+      "id": "PACKAGE-ISOLATION",
+      "given": "SDK dependencies conflict with stdlib-only CLI/Diff baseline",
+      "expected": "MCP environment isolated; no core dependency installation or sys.path private patch"
+    }
+  ],
+  "projection_cases": [
+    {
+      "id": "PROJECTION-UNCHANGED",
+      "given": "Generate adapter schemas",
+      "expected": "Original core snapshot schema bytes remain unchanged; manifest source digest matches"
+    },
+    {
+      "id": "PROJECTION-KEYWORDS",
+      "given": "New tuple-items, dependencies, nested dialect or unknown keyword appears",
+      "expected": "Stop generation for review rather than ignore or reinterpret it"
+    },
+    {
+      "id": "PROJECTION-EQUIVALENCE",
+      "given": "Core 36 structure vectors",
+      "expected": "Recheck all originals; compare all 23 snapshot cases with pure 2020 projection; other 13 explicitly not_applicable to capture projection"
+    },
+    {
+      "id": "PROJECTION-MCP-OVERLAY",
+      "given": "Core terminal/agent/unspecified snapshot",
+      "expected": "Pure projection accepts valid core source; capture envelope separately rejects non-mcp context"
+    },
+    {
+      "id": "PROJECTION-EMBEDDED",
+      "given": "Tool descriptor embeds schemas",
+      "expected": "Deep equality with standalone schemas; all refs remain local and resolve in extracted schema root"
+    },
+    {
+      "id": "PROJECTION-LEGACY-ROOT-TYPE",
+      "given": "Legacy Tool description root requirements",
+      "expected": "Both schema roots explicitly type=object; real missing-input-type, missing-output-type and wrong-output-type data are rejected by offline root checker; not an SDK-model execution claim"
+    }
+  ]
+}

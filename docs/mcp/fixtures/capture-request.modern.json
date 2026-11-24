@@ -1,0 +1,17 @@
+{
+  "jsonrpc": "2.0",
+  "id": "synthetic-capture-1",
+  "method": "tools/call",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+      "io.modelcontextprotocol/clientCapabilities": {},
+      "io.modelcontextprotocol/clientInfo": {
+        "name": "windoctor-synthetic-client",
+        "version": "0.0.0"
+      }
+    },
+    "name": "capture_environment",
+    "arguments": {}
+  }
+}

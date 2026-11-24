@@ -1,0 +1,1467 @@
+{
+  "document_version": "windoctor.boundary-vectors/1",
+  "execution_status": "design-only",
+  "description": "All data is public and synthetic. These are future implementation acceptance scenarios, not executed product tests. Structure checks can be run independently with Test-Json; semantic expectations require the normative documents.",
+  "fixture_key_derivation": "SHA256(UTF8('windoctor-public-fixture/1')); public fixture material, never a production secret",
+  "case_count": 141,
+  "case_counts": {
+    "schema_cases": 36,
+    "semantic_cases": 16,
+    "state_matrix": 36,
+    "comparison_cases": 10,
+    "scope_cases": 8,
+    "privacy_cases": 6,
+    "resolver_cases": 16,
+    "input_output_cases": 13
+  },
+  "schema_cases": [
+    {
+      "id": "STRUCT-VALID-BASELINE",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [],
+      "expected_valid": true
+    },
+    {
+      "id": "STRUCT-VALID-TARGET",
+      "schema": "snapshot.schema.json",
+      "base": "examples/target.json",
+      "mutations": [],
+      "expected_valid": true
+    },
+    {
+      "id": "STRUCT-VALID-RETEST",
+      "schema": "snapshot.schema.json",
+      "base": "examples/retest.json",
+      "mutations": [],
+      "expected_valid": true
+    },
+    {
+      "id": "STRUCT-VALID-COMPARISON-EXPECTED",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [],
+      "expected_valid": true
+    },
+    {
+      "id": "STRUCT-VALID-RETEST-EXPECTED",
+      "schema": "retest.schema.json",
+      "base": "examples/retest-expected.json",
+      "mutations": [],
+      "expected_valid": true
+    },
+    {
+      "id": "STRUCT-VALID-SCOPE-BASE64-ONLY",
+      "schema": "scope.schema.json",
+      "inline": {
+        "schema_version": "windoctor.scope/1",
+        "protected_key": "QUJDRA=="
+      },
+      "mutations": [],
+      "expected_valid": true,
+      "note": "Public synthetic ABCD bytes, NOT a DPAPI blob. Structural pass is not scope usability."
+    },
+    {
+      "id": "STRUCT-INVALID-ROOT-UNKNOWN",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/raw_path",
+          "value": "SYNTHETIC_UNTRUSTED_TEXT"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-MISSING-OBSERVATION",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "remove",
+          "path": "/observations/exec.node"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-NULL-ATOM",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd",
+          "value": null
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-PRESENT-WITHOUT-TOKEN",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd/token",
+          "value": null
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-PRESENT-WRONG-DISPLAY",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd/display",
+          "value": "EMPTY"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-PRESENT-WRONG-REASON",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd/reason",
+          "value": "READ_FAILED"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-NONPROXY-AUTH",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd/auth_present",
+          "value": true
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-PROXY-PRESENT-NULL-AUTH",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/env.HTTP_PROXY/auth_present",
+          "value": null
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-ENV-MISSING-WRONG-REASON",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/env.HTTPS_PROXY/reason",
+          "value": "NOT_FOUND"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-EXEC-EMPTY",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/exec.node",
+          "value": {
+            "state": "empty",
+            "display": "EMPTY",
+            "token": null,
+            "reason": "NONE",
+            "auth_present": null
+          }
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-CWD-MISSING",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd",
+          "value": {
+            "state": "missing",
+            "display": "MISSING",
+            "token": null,
+            "reason": "NOT_SET",
+            "auth_present": null
+          }
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-UPPERCASE-TOKEN",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/cwd/token",
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-UUID-NOT-V4",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot_id",
+          "value": "11111111-1111-1111-8111-111111111111"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-TIME-OFFSET",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/captured_at",
+          "value": "2026-11-11T09:00:00+08:00"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-DECLARED-DAEMON",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/source/declared_context",
+          "value": "daemon"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-SCHEMA-VERSION",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/schema_version",
+          "value": "windoctor.snapshot/2"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-COLLECTOR-NEWLINE",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/collector/version",
+          "value": "0.0.0\n"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-OS-NEWLINE",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/os/version",
+          "value": "10.0.0\n"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-RESOLUTION-PAIR",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/resolutions/node/entry_index",
+          "value": null
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-PATH-EMPTY-NULL-REASON",
+      "schema": "snapshot.schema.json",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/path_entries/0",
+          "value": {
+            "index": 0,
+            "token": null,
+            "status": "searched",
+            "reason": "NONE"
+          }
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-COMPARISON-REASON",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/comparisons/0/reason",
+          "value": "VALUE_EQUAL"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-COMPARISON-ORDER",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/comparisons/0/subject",
+          "value": "env.PATH"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-EVIDENCE-RAW-POINTER",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/comparisons/0/evidence/0/pointer",
+          "value": "/untrusted/raw"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-FINDING-UNKNOWN-RULE",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/findings/0/rule_id",
+          "value": "ARBITRARY_RULE"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-FINDING-ID-NEWLINE",
+      "schema": "comparison.schema.json",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/findings/0/finding_id",
+          "value": "VALUE_DIFFERENCE:cwd\n"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-RETEST-PAIR",
+      "schema": "retest.schema.json",
+      "base": "examples/retest-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/items/0/reason",
+          "value": "RETEST_EQUAL"
+        }
+      ],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-SCOPE-PLAINTEXT",
+      "schema": "scope.schema.json",
+      "inline": {
+        "schema_version": "windoctor.scope/1",
+        "protected_key": "QUJDRA==",
+        "key": "public-test-not-secret"
+      },
+      "mutations": [],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-SCOPE-PADDING",
+      "schema": "scope.schema.json",
+      "inline": {
+        "schema_version": "windoctor.scope/1",
+        "protected_key": "ABC==="
+      },
+      "mutations": [],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-SCOPE-LIMIT",
+      "schema": "scope.schema.json",
+      "inline": {
+        "schema_version": "windoctor.scope/1",
+        "protected_key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "mutations": [],
+      "expected_valid": false
+    },
+    {
+      "id": "STRUCT-INVALID-SCOPE-WHITESPACE",
+      "schema": "scope.schema.json",
+      "inline": {
+        "schema_version": "windoctor.scope/1",
+        "protected_key": "QUJDRA==\n"
+      },
+      "mutations": [],
+      "expected_valid": false
+    }
+  ],
+  "semantic_cases": [
+    {
+      "id": "SEM-COMPLETION",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/completion",
+          "value": "partial"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Recompute completion from all eleven observation states."
+    },
+    {
+      "id": "SEM-PATH-INDEX",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/path_entries/0/index",
+          "value": 1
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "index equals the array offset."
+    },
+    {
+      "id": "SEM-RESOLUTION-INDEX",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/resolutions/node/entry_index",
+          "value": 255
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Resolution entry_index references an existing PATH entry."
+    },
+    {
+      "id": "SEM-RESOLUTION-TOKEN",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/resolutions/node/first_observed",
+          "value": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "found token equals the exec observation token."
+    },
+    {
+      "id": "SEM-NOTFOUND-PRESENT",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/resolutions/node",
+          "value": {
+            "certainty": "not_found",
+            "first_observed": null,
+            "entry_index": null,
+            "reason": "NOT_FOUND"
+          }
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "not_found requires exec missing/NOT_FOUND."
+    },
+    {
+      "id": "SEM-PATH-MISSING-ENTRIES",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/observations/env.PATH",
+          "value": {
+            "state": "missing",
+            "display": "MISSING",
+            "token": null,
+            "reason": "NOT_SET",
+            "auth_present": null
+          }
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Non-present PATH requires an empty path_entries array and consistent resolutions."
+    },
+    {
+      "id": "SEM-EVIDENCE-ID",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/comparisons/0/evidence/1/snapshot_id",
+          "value": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Evidence order and snapshot IDs must match baseline and target."
+    },
+    {
+      "id": "SEM-EVIDENCE-SUBJECT",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/findings/0/evidence/0/pointer",
+          "value": "/observations/env.PATH"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Finding evidence pointers must reference the finding subject."
+    },
+    {
+      "id": "SEM-FINDING-ID",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/findings/0/finding_id",
+          "value": "STATE_DIFFERENCE:cwd"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "finding_id equals rule_id + ':' + subject."
+    },
+    {
+      "id": "SEM-FINDING-MISSING",
+      "base": "examples/comparison-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/findings",
+          "value": []
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Exactly one finding for each different comparison and none otherwise."
+    },
+    {
+      "id": "SEM-RETEST-DUPLICATE",
+      "base": "examples/retest-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/items/1/subject",
+          "value": "cwd"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "One retest item for every original finding; no duplicate subjects."
+    },
+    {
+      "id": "SEM-RETEST-EVIDENCE",
+      "base": "examples/retest-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/items/0/evidence/2/snapshot_id",
+          "value": "22222222-2222-4222-8222-222222222222"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "Retest evidence order must be B/T/R."
+    },
+    {
+      "id": "SEM-RETEST-COMPLETION",
+      "base": "examples/retest-expected.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/completion",
+          "value": "complete"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "At least one unverifiable and one verifiable item means partial."
+    },
+    {
+      "id": "SEM-ID-CONFLICT",
+      "inputs": [
+        "baseline.json",
+        "target.json"
+      ],
+      "mutation_on": "target",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/snapshot_id",
+          "value": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "expected_code": "E_ID_CONFLICT",
+      "constraint": "Same ID with different content is rejected, not compared."
+    },
+    {
+      "id": "SEM-ID-SAME-CONTENT",
+      "inputs": [
+        "baseline.json",
+        "baseline.json"
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "A snapshot cannot be compared against itself as two different captures."
+    },
+    {
+      "id": "SEM-INVALID-DATE",
+      "base": "examples/baseline.json",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/captured_at",
+          "value": "2026-02-30T01:00:00Z"
+        }
+      ],
+      "expected_code": "E_SEMANTIC",
+      "constraint": "The syntax matches the schema pattern; validate actual UTC calendar dates semantically because format may only be an annotation."
+    }
+  ],
+  "state_matrix": [
+    {
+      "id": "STATE-PRESENT-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "equal",
+      "reason": "VALUE_EQUAL",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-PRESENT-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-PRESENT-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-PRESENT-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-PRESENT-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-PRESENT-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "present",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-EMPTY-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-EMPTY-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "equal",
+      "reason": "STATE_EQUAL",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-EMPTY-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-EMPTY-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-EMPTY-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-EMPTY-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "empty",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-MISSING-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-MISSING-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "different",
+      "reason": "STATE_CHANGED",
+      "finding_rule": "STATE_DIFFERENCE"
+    },
+    {
+      "id": "STATE-MISSING-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "equal",
+      "reason": "STATE_EQUAL",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-MISSING-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-MISSING-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-MISSING-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "missing",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-INACCESSIBLE-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "inaccessible",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-SKIPPED-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "skipped",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-PRESENT",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "present",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-EMPTY",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "empty",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-MISSING",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "missing",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-INACCESSIBLE",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "inaccessible",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-SKIPPED",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "skipped",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    },
+    {
+      "id": "STATE-ERROR-ERROR",
+      "subject": "env.NO_PROXY",
+      "policy": "compatible",
+      "left_state": "error",
+      "right_state": "error",
+      "present_tokens": "equal",
+      "result": "unknown",
+      "reason": "OBSERVATION_UNAVAILABLE",
+      "finding_rule": null
+    }
+  ],
+  "comparison_cases": [
+    {
+      "id": "COMPARE-VALUE-CHANGED",
+      "given": "Both present with compatible policy, distinct tokens and identical REDACTED displays.",
+      "expected": {
+        "result": "different",
+        "reason": "VALUE_CHANGED",
+        "rule_id": "VALUE_DIFFERENCE"
+      }
+    },
+    {
+      "id": "COMPARE-AUTH-CONTENT-ONLY",
+      "given": "Same canonical endpoint and auth_present=true, different synthetic passwords removed before fingerprinting.",
+      "expected": {
+        "result": "equal",
+        "reason": "VALUE_EQUAL",
+        "auth_changed": false,
+        "finding": false
+      }
+    },
+    {
+      "id": "COMPARE-AUTH-PRESENCE",
+      "given": "Same endpoint token; false versus true auth_present.",
+      "expected": {
+        "result": "different",
+        "reason": "AUTH_PRESENCE_CHANGED",
+        "auth_changed": true,
+        "rule_id": "AUTH_PRESENCE_DIFFERENCE"
+      }
+    },
+    {
+      "id": "COMPARE-ENDPOINT-AND-AUTH",
+      "given": "Distinct endpoint tokens and different auth_present.",
+      "expected": {
+        "result": "different",
+        "reason": "VALUE_CHANGED",
+        "auth_changed": true,
+        "rule_id": "VALUE_DIFFERENCE"
+      }
+    },
+    {
+      "id": "COMPARE-EMPTY-OR-MISSING-COMPLETE",
+      "given": "All states present/empty/missing in both inputs, including deterministic executable not_found.",
+      "expected": {
+        "snapshot_completion": "complete",
+        "comparison_completion": "complete"
+      }
+    },
+    {
+      "id": "COMPARE-ALL-UNAVAILABLE",
+      "given": "All eleven comparisons are unknown.",
+      "expected": {
+        "completion": "failed",
+        "findings": []
+      }
+    },
+    {
+      "id": "RETEST-NO-OLD-FINDING",
+      "given": "B and T are equal, but R has new differences.",
+      "expected": {
+        "items": [],
+        "completion": "complete",
+        "note": "New differences require a separate B/R comparison report."
+      }
+    },
+    {
+      "id": "RETEST-RULE-CHANGED",
+      "given": "Old finding is STATE_DIFFERENCE; same subject now has VALUE_DIFFERENCE.",
+      "expected": {
+        "outcome": "persists",
+        "reason": "RETEST_DIFFERENT",
+        "preserve_original_finding_id": true
+      }
+    },
+    {
+      "id": "RETEST-SAME-PROCESS",
+      "given": "R has the same process_instance_id as T.",
+      "expected": {
+        "note": "No claim that a fresh host environment was inherited."
+      }
+    },
+    {
+      "id": "RETEST-ALL-UNKNOWN",
+      "given": "Every old finding has an unknown or not_comparable new comparison.",
+      "expected": {
+        "completion": "failed",
+        "outcome_for_each": "unverifiable"
+      }
+    }
+  ],
+  "scope_cases": [
+    {
+      "id": "SCOPE-DIFFERENT-ID",
+      "given": "Identical tokens, different scope_id.",
+      "expected": {
+        "result": "not_comparable",
+        "reason": "POLICY_MISMATCH",
+        "old_finding_outcome": "unverifiable"
+      }
+    },
+    {
+      "id": "SCOPE-UNSUPPORTED-POLICY",
+      "given": "privacy=2 in both snapshots; other fields identical.",
+      "expected": {
+        "result": "not_comparable",
+        "reason": "POLICY_MISMATCH"
+      }
+    },
+    {
+      "id": "SCOPE-PRECEDENCE",
+      "given": "Policy mismatch plus inaccessible observations.",
+      "expected": {
+        "result": "not_comparable",
+        "reason": "POLICY_MISMATCH"
+      }
+    },
+    {
+      "id": "SCOPE-MISSING-ARGUMENT",
+      "given": "capture lacks --scope-file.",
+      "expected": {
+        "code": "E_ARGUMENT",
+        "exit": 2,
+        "snapshot_written": false
+      }
+    },
+    {
+      "id": "SCOPE-NOT-JSON",
+      "given": "Malformed, duplicated-key or unsupported scope document.",
+      "expected": {
+        "code": "E_SCOPE_FORMAT",
+        "exit": 2,
+        "snapshot_written": false
+      }
+    },
+    {
+      "id": "SCOPE-DPAPI-UNAVAILABLE",
+      "given": "Public ABCD Base64 from the structural case, or inaccessible/other-user protected blob.",
+      "expected": {
+        "code": "E_SCOPE_UNAVAILABLE",
+        "exit": 4,
+        "plaintext_fallback": false,
+        "snapshot_written": false
+      }
+    },
+    {
+      "id": "SCOPE-DECRYPTED-LENGTH",
+      "given": "DPAPI decrypts a key whose length is not exactly 32 bytes.",
+      "expected": {
+        "code": "E_SCOPE_UNAVAILABLE",
+        "exit": 4,
+        "snapshot_written": false
+      }
+    },
+    {
+      "id": "SCOPE-LIFECYCLE",
+      "given": "Scope was deleted after B/T/R captures.",
+      "expected": {
+        "existing_snapshots_comparable": true,
+        "new_capture_without_scope": false,
+        "no_automatic_recreation": true
+      }
+    }
+  ],
+  "privacy_cases": [
+    {
+      "id": "PRIVACY-SAME-ENDPOINT",
+      "subject": "env.HTTP_PROXY",
+      "canonical_values": [
+        [
+          "http",
+          "proxy.synthetic.invalid",
+          8080
+        ],
+        [
+          "http",
+          "proxy.synthetic.invalid",
+          8080
+        ]
+      ],
+      "expected_relation": "same_token"
+    },
+    {
+      "id": "PRIVACY-DIFFERENT-ENDPOINT",
+      "subject": "env.HTTP_PROXY",
+      "canonical_values": [
+        [
+          "http",
+          "proxy.synthetic.invalid",
+          8080
+        ],
+        [
+          "http",
+          "other.synthetic.invalid",
+          8080
+        ]
+      ],
+      "expected_relation": "different_tokens_same_display"
+    },
+    {
+      "id": "PRIVACY-DOMAIN-SEPARATION",
+      "subjects": [
+        "cwd",
+        "exec.node"
+      ],
+      "canonical_value": "C:\\Synthetic\\Same",
+      "expected_relation": "different_tokens"
+    },
+    {
+      "id": "PRIVACY-CREDENTIALS",
+      "synthetic_input_urls": [
+        "http://fixture:password-one@proxy.synthetic.invalid:8080",
+        "http://fixture:password-two@proxy.synthetic.invalid:8080"
+      ],
+      "canonical_value": [
+        "http",
+        "proxy.synthetic.invalid",
+        8080
+      ],
+      "expected_relation": "same_token_and_auth_present_true",
+      "note": "Public invented credentials. Credentials are removed before fingerprinting, never compared or exported."
+    },
+    {
+      "id": "PRIVACY-UNICODE",
+      "subject": "cwd",
+      "canonical_value": "C:\\Synthetic\\样例",
+      "expected_token": "cf4dd9f561bc8cab8cf7dc7f3b71bb1236d0bdf84592763771da82876a1749d5",
+      "note": "UTF-8 compact JSON, ensure_ascii=false."
+    },
+    {
+      "id": "PRIVACY-PROXY-INVALID",
+      "synthetic_inputs": [
+        "http://proxy.synthetic.invalid:",
+        "http://proxy.synthetic.invalid/?secret=fixture",
+        "http://proxy.synthetic.invalid/#fixture",
+        "http://bad%20host:8080"
+      ],
+      "expected": "error/INVALID_VALUE; no token or raw input output"
+    }
+  ],
+  "resolver_cases": [
+    {
+      "id": "PATH-EMPTY",
+      "given": "Empty PATH",
+      "expected": "empty observation; no entries; four not_found resolutions; no current-directory search"
+    },
+    {
+      "id": "PATH-MISSING",
+      "given": "Unset PATH",
+      "expected": "missing/NOT_SET; no entries; four not_found resolutions"
+    },
+    {
+      "id": "PATH-EMPTY-ENTRY",
+      "given": "Absolute local directory, empty item, another directory",
+      "expected": "Preserve index; empty item skipped/EMPTY_ENTRY and token=null; relevant prefix may become indeterminate"
+    },
+    {
+      "id": "PATH-RELATIVE",
+      "given": "Relative or drive-relative directory",
+      "expected": "skipped/RELATIVE_PATH; never resolve against cwd"
+    },
+    {
+      "id": "PATH-DOT",
+      "given": "Absolute path containing . or ..",
+      "expected": "skipped/UNSUPPORTED_PATH; no resolve"
+    },
+    {
+      "id": "PATH-NETWORK",
+      "given": "UNC, mapped remote or unconfirmed drive",
+      "expected": "skipped/NETWORK_PATH or UNSUPPORTED_PATH; do not follow or issue metadata requests beyond classification"
+    },
+    {
+      "id": "PATH-REPARSE",
+      "given": "Reparse ancestor or target",
+      "expected": "skipped/REPARSE_POINT; do not follow"
+    },
+    {
+      "id": "PATH-ADS-DEVICE",
+      "given": "ADS, device namespace or quoted directory",
+      "expected": "skipped/UNSUPPORTED_PATH before traversal"
+    },
+    {
+      "id": "PATH-LIMIT",
+      "given": "257 entries, >32767 total or >4096 per item",
+      "expected": "env.PATH error/LIMIT_EXCEEDED; no truncated search; all resolutions indeterminate"
+    },
+    {
+      "id": "PATH-EARLY-UNAVAILABLE",
+      "given": "Incomplete directory before an observed program",
+      "expected": "indeterminate/INCOMPLETE_SEARCH; first_observed may record candidate but exec observation has no token"
+    },
+    {
+      "id": "PATH-LATE-UNAVAILABLE",
+      "given": "Program found before a later incomplete directory",
+      "expected": "found remains valid for that program"
+    },
+    {
+      "id": "PATH-SAME-DIRECTORY-EXTENSION",
+      "given": "npx.exe inaccessible but npx.cmd present in the same directory",
+      "expected": "npx indeterminate because its earlier extension is unresolved; other programs with complete priority prefixes can remain found"
+    },
+    {
+      "id": "PATH-DIRECTORY-AS-CANDIDATE",
+      "given": "node.exe is a directory, not an ordinary file",
+      "expected": "Not a candidate; no execution or reading directory contents"
+    },
+    {
+      "id": "PATH-PATHEXT-IGNORED",
+      "given": "PATHEXT differs but fixed candidate list is unchanged",
+      "expected": "Capture PATHEXT difference, retain fixed resolution policy"
+    },
+    {
+      "id": "PATH-ORDER-DUPLICATES",
+      "given": "Same PATH elements in different order, duplicates preserved",
+      "expected": "PATH token differs; do not sort or deduplicate"
+    },
+    {
+      "id": "PATH-LEXICAL-CASE",
+      "given": "Directory spelling differs only in non-drive letter case",
+      "expected": "Different lexical token possible; do not claim different file identity"
+    }
+  ],
+  "input_output_cases": [
+    {
+      "id": "IO-DUPLICATE-KEY",
+      "given": "JSON repeats a known key",
+      "expected": "E_JSON; reject before schema; do not echo key or raw text"
+    },
+    {
+      "id": "IO-UTF8-BOM",
+      "given": "BOM, invalid UTF-8 or unpaired surrogate",
+      "expected": "E_JSON; no raw text in stderr"
+    },
+    {
+      "id": "IO-NONFINITE-TRAILING",
+      "given": "NaN/Infinity or non-whitespace trailing content",
+      "expected": "E_JSON"
+    },
+    {
+      "id": "IO-INPUT-BOUNDS",
+      "given": ">1MiB input, depth>16, string>4096, array>2048 or object>128 keys",
+      "expected": "E_INPUT_LIMIT using bounded read/preflight; tighter schema limits still apply"
+    },
+    {
+      "id": "IO-MALICIOUS-FREETEXT",
+      "given": "Unknown key or display containing a synthetic script or raw path",
+      "expected": "E_SCHEMA; safe fixed-pointer error; no reflection into HTML/text"
+    },
+    {
+      "id": "IO-OUTPUT-EXISTS",
+      "given": "Explicit output path already exists",
+      "expected": "E_OUTPUT_EXISTS; exclusive creation; existing bytes unchanged"
+    },
+    {
+      "id": "IO-OUTPUT-ALIAS",
+      "given": "Output is input path or identified hard-link alias",
+      "expected": "E_OUTPUT_ALIAS; preserve input"
+    },
+    {
+      "id": "IO-OUTPUT-PARENT",
+      "given": "Output parent absent, remote, reparse or unconfirmed local",
+      "expected": "Fail closed; no mkdir, network traversal or overwrite"
+    },
+    {
+      "id": "IO-WRITE-FAILURE",
+      "given": "Write or close fails on a newly exclusively-created file",
+      "expected": "E_OUTPUT_IO; remove only own same-identity file when safe"
+    },
+    {
+      "id": "IO-CLEANUP-FAILURE",
+      "given": "Partial output cannot be safely removed",
+      "expected": "E_OUTPUT_PARTIAL; do not delete pre-existing or replaced files"
+    },
+    {
+      "id": "IO-STDOUT-PIPE",
+      "given": "Broken stdout pipe after serialization",
+      "expected": "I/O exit; no promise to retract already-sent bytes"
+    },
+    {
+      "id": "IO-HTML-STDOUT",
+      "given": "html requested without --out",
+      "expected": "E_ARGUMENT; no browser launch or output"
+    },
+    {
+      "id": "IO-OUTPUT-REBUILD",
+      "given": "Input claims to be redacted but supplies free text in a known scalar",
+      "expected": "Reject non-whitelist structure; rebuild renderer data from approved fields"
+    }
+  ]
+}
